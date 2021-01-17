@@ -1,0 +1,54 @@
+.div_forms{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 300px;
+
+}
+.form{
+    width: 200px;
+    height: 130px;
+    border: 2px solid black;
+    padding: 10px;
+    text-align: center;
+    margin: 3px;
+}
+.scroll{
+    overflow: auto;
+}
+.gold{
+    margin: 20px 300px;
+    display: flex;
+
+}
+.gold p{
+    border: 2px solid black;
+    text-align: left;
+    width: 100px;
+    height: 15px;
+    padding: 5px;
+    margin: 0px;
+}
+.gold label{
+    margin-top: 5px;
+    margin-right: 10px;
+}
+.scroll{
+    border: 2px solid black;
+    height: 200px;
+    color: green;
+}
+span{
+    color: red;
+}
+.activities{
+    margin: 20px 300px;
+}
+.activities button{
+    margin-top: 10px;
+}
+.activities div{
+    padding-left: 10px;
+}
+.playAgain{
+    margin: 45%;
+}
