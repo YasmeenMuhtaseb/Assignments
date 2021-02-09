@@ -1,0 +1,348 @@
+Create a database called 'my_first_db'.
+> use my_first_db
+switched to db my_first_db
+_________________________________________________________
+Create students collection.
+> db.createCollection('students')
+{ "ok" : 1 }
+_________________________________________________________
+Each document you insert into this collection should have the following format: ({name: STRING, home_state: STRING, lucky_number: NUMBER, birthday: {month: NUMBER, day: NUMBER, year: NUMBER}})
+Create 5 students with the appropriate info.
+> db.students.insert({name:"kamal",home_state:"nablus",lucky_number:7,birthday:{month:7,day:2,year:1994}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name:"abdusalam",home_state:"nablus",lucky_number:2,birthday:{month:12,day:1,year:1993}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name:"yasmeen",home_state:"ramallah",lucky_number:5,birthday:{month:9,day:5,year:1995}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name:"aseel",home_state:"Hebron",lucky_number:4,birthday:{month:4,day:8,year:1998}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name:"Loay",home_state:"Nablus",lucky_number:4,birthday:{month:8,day:15,year:1997}})
+WriteResult({ "nInserted" : 1 })
+__________________________________________________________
+Get all students.
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("602295bebd17f98d3ae1ffbd"),
+        "name" : "kamal",
+        "home_state" : "nablus",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 7,
+                "day" : 2,
+                "year" : 1994
+        }
+}
+{
+        "_id" : ObjectId("60229617bd17f98d3ae1ffbe"),
+        "name" : "abdusalam",
+        "home_state" : "nablus",
+        "lucky_number" : 2,
+        "birthday" : {
+                "month" : 12,
+                "day" : 1,
+                "year" : 1993
+        }
+}
+{
+        "_id" : ObjectId("6022965fbd17f98d3ae1ffbf"),
+        "name" : "yasmeen",
+        "home_state" : "ramallah",
+        "lucky_number" : 5,
+        "birthday" : {
+                "month" : 9,
+                "day" : 5,
+                "year" : 1995
+        }
+}
+{
+        "_id" : ObjectId("602296babd17f98d3ae1ffc0"),
+        "name" : "aseel",
+        "home_state" : "Hebron",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 4,
+                "day" : 8,
+                "year" : 1998
+        }
+}
+{
+        "_id" : ObjectId("60229746bd17f98d3ae1ffc1"),
+        "name" : "Loay",
+        "home_state" : "Nablus",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 8,
+                "day" : 15,
+                "year" : 1997
+        }
+}
+________________________________________________________________
+Retrieve all students who are from nablus or ramallah.
+> db.students.find({home_state:{$in:["nablus","ramallah"]}}).pretty()
+{
+        "_id" : ObjectId("602295bebd17f98d3ae1ffbd"),
+        "name" : "kamal",
+        "home_state" : "nablus",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 7,
+                "day" : 2,
+                "year" : 1994
+        }
+}
+{
+        "_id" : ObjectId("60229617bd17f98d3ae1ffbe"),
+        "name" : "abdusalam",
+        "home_state" : "nablus",
+        "lucky_number" : 2,
+        "birthday" : {
+                "month" : 12,
+                "day" : 1,
+                "year" : 1993
+        }
+}
+{
+        "_id" : ObjectId("6022965fbd17f98d3ae1ffbf"),
+        "name" : "yasmeen",
+        "home_state" : "ramallah",
+        "lucky_number" : 5,
+        "birthday" : {
+                "month" : 9,
+                "day" : 5,
+                "year" : 1995
+        }
+}
+___________________________________________________________
+ Get all students whose lucky number is greater than 3
+> db.students.find({lucky_number:{$gt:3}}).pretty()
+{
+        "_id" : ObjectId("602295bebd17f98d3ae1ffbd"),
+        "name" : "kamal",
+        "home_state" : "nablus",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 7,
+                "day" : 2,
+                "year" : 1994
+        }
+}
+{
+        "_id" : ObjectId("6022965fbd17f98d3ae1ffbf"),
+        "name" : "yasmeen",
+        "home_state" : "ramallah",
+        "lucky_number" : 5,
+        "birthday" : {
+                "month" : 9,
+                "day" : 5,
+                "year" : 1995
+        }
+}
+{
+        "_id" : ObjectId("602296babd17f98d3ae1ffc0"),
+        "name" : "aseel",
+        "home_state" : "Hebron",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 4,
+                "day" : 8,
+                "year" : 1998
+        }
+}
+{
+        "_id" : ObjectId("60229746bd17f98d3ae1ffc1"),
+        "name" : "Loay",
+        "home_state" : "Nablus",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 8,
+                "day" : 15,
+                "year" : 1997
+        }
+}
+__________________________________________________________________
+Get all students whose lucky number is less than or equal to 10
+> db.students.find({lucky_number:{$lte:10}}).pretty()
+{
+        "_id" : ObjectId("602295bebd17f98d3ae1ffbd"),
+        "name" : "kamal",
+        "home_state" : "nablus",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 7,
+                "day" : 2,
+                "year" : 1994
+        }
+}
+{
+        "_id" : ObjectId("60229617bd17f98d3ae1ffbe"),
+        "name" : "abdusalam",
+        "home_state" : "nablus",
+        "lucky_number" : 2,
+        "birthday" : {
+                "month" : 12,
+                "day" : 1,
+                "year" : 1993
+        }
+}
+{
+        "_id" : ObjectId("6022965fbd17f98d3ae1ffbf"),
+        "name" : "yasmeen",
+        "home_state" : "ramallah",
+        "lucky_number" : 5,
+        "birthday" : {
+                "month" : 9,
+                "day" : 5,
+                "year" : 1995
+        }
+}
+{
+        "_id" : ObjectId("602296babd17f98d3ae1ffc0"),
+        "name" : "aseel",
+        "home_state" : "Hebron",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 4,
+                "day" : 8,
+                "year" : 1998
+        }
+}
+{
+        "_id" : ObjectId("60229746bd17f98d3ae1ffc1"),
+        "name" : "Loay",
+        "home_state" : "Nablus",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 8,
+                "day" : 15,
+                "year" : 1997
+        }
+}
+_________________________________________________________________
+Get all students whose lucky number is between 1 and 9 (inclusive)
+> db.students.find({lucky_number:{$gt:1,$lt:9}}).pretty()
+{
+        "_id" : ObjectId("602295bebd17f98d3ae1ffbd"),
+        "name" : "kamal",
+        "home_state" : "nablus",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 7,
+                "day" : 2,
+                "year" : 1994
+        }
+}
+{
+        "_id" : ObjectId("60229617bd17f98d3ae1ffbe"),
+        "name" : "abdusalam",
+        "home_state" : "nablus",
+        "lucky_number" : 2,
+        "birthday" : {
+                "month" : 12,
+                "day" : 1,
+                "year" : 1993
+        }
+}
+{
+        "_id" : ObjectId("6022965fbd17f98d3ae1ffbf"),
+        "name" : "yasmeen",
+        "home_state" : "ramallah",
+        "lucky_number" : 5,
+        "birthday" : {
+                "month" : 9,
+                "day" : 5,
+                "year" : 1995
+        }
+}
+{
+        "_id" : ObjectId("602296babd17f98d3ae1ffc0"),
+        "name" : "aseel",
+        "home_state" : "Hebron",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 4,
+                "day" : 8,
+                "year" : 1998
+        }
+}
+{
+        "_id" : ObjectId("60229746bd17f98d3ae1ffc1"),
+        "name" : "Loay",
+        "home_state" : "Nablus",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 8,
+                "day" : 15,
+                "year" : 1997
+        }
+}
+_______________________________________________________________
+Add a field to each student collection called 'interests' that is an ARRAY. It should contain the following entries: 'coding', 'brunch', 'MongoDB'. Do this in ONE operation.
+> db.students.updateMany({},{$set:{interests:["coding","branch","mongodb"]}})
+{ "acknowledged" : true, "matchedCount" : 5, "modifiedCount" : 4 }
+_______________________________________________________________
+Add some unique interests for each particular student into each of their interest arrays.
+> db.students.update({name:"abdusalam"},{$addToSet:{interests:"java"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.update({name:"kamal"},{$addToSet:{interests:"php"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.update({name:"yasmeen"},{$addToSet:{interests:"mern"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.update({name:"Loay"},{$addToSet:{interests:"css"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.update({name:"aseel"},{$addToSet:{interests:"python"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+_________________________________________________________________
+Add the interest 'taxes' into someone's interest array.
+> db.students.update({name:"yasmeen"},{$addToSet:{interests:"taxes"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+_________________________________________________________________
+Remove the 'taxes' interest you just added.
+> db.students.update({name:"yasmeen"},{$pull:{interests:"taxes"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+_________________________________________________________________
+Remove all students who are from nablus
+> db.students.remove({home_state:"nablus"})
+WriteResult({ "nRemoved" : 2 })
+_________________________________________________________________
+Remove a student by name.
+> db.students.remove({name:"aseel"},true)
+WriteResult({ "nRemoved" : 1 })
+_________________________________________________________________
+Remove a student whose lucky number is greater than 2 (JUST ONE)
+> db.students.remove({lucky_number:{$gt:2}},true)
+WriteResult({ "nRemoved" : 1 })
+_________________________________________________________________
+Add a field to each student collection called 'number_of_belts' and set it to 0.
+> db.students.updateMany({},{$set:{number_of_belts:1}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("60229746bd17f98d3ae1ffc1"),
+        "name" : "Loay",
+        "home_state" : "Nablus",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 8,
+                "day" : 15,
+                "year" : 1997
+        },
+        "interests" : [
+                "coding",
+                "branch",
+                "mongodb",
+                "css"
+        ],
+        "number_of_belts" : 1
+}
+___________________________________________________________________
+Rename the 'number_of_belts' field to 'belts_earned'
+> db.students.updateMany({},{$rename:{number_of_belts:"belts_earnd"}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+___________________________________________________________________
+Remove the 'lucky_number' field.
+> db.students.updateMany({},{$unset:{lucky_number:""}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+___________________________________________________________________
+Add a 'updated_on' field, and set the value as the current date.
+> db.students.updateMany({},{$set:{updated_on:Date()}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }

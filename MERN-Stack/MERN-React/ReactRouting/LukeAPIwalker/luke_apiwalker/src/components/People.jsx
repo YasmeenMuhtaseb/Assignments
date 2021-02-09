@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import axios from 'axios';
 
 const People = (props) => {
-    
     axios.get(props.displayData.homeworld).then(response => setplanet(response.data))
     const [planet,setplanet]=useState('');
     return (
+        
         <div>
             <h3>{props.displayData.name}</h3>
             <p>Height: {props.displayData.height}</p>
