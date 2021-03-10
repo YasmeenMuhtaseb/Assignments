@@ -5,13 +5,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CreateAuthorForm = props => {
 
-    const [name, setName] = useState("")
+    const [question, setQuestion] = useState("")
+    const [options,setOptions] = useState([])
     const [errors, setErrors] = useState([])
 
     const onSubmit = e => {
         e.preventDefault()
-        axios.post("http://localhost:8000/api/newauthor", {
-            name: name,
+        axios.post("http://localhost:8000/api/polls/new", {
+            question: question,
+            options: options,
+
         })
             .then(() => navigate("/"))
             .catch(err =>{
@@ -40,12 +43,22 @@ const CreateAuthorForm = props => {
                 <div className="col-6">
                     <form onSubmit={ onSubmit }>
                         <div className="form-group">
-                            <label>Name:</label>
-                            <input onChange={(e)=>setName(e.target.value)} type="text" className="form-control"/>
+                            <label>Your question:</label>
+                            <textarea onChange={(e)=>setQuestion(e.target.value)} type="text" className="form-control"/>
+                        </div>
+                        <div>
+                            <label>Option 1:</label>
+                            <input onChange={(e)=>setOptions(e.target.value)} type="text" className="form-control"/>
+                            <label>Option 2:</label>
+                            <input onChange={(e)=>setOptions(e.target.value)} type="text" className="form-control"/>
+                            <label>Option 3:</label>
+                            <input onChange={(e)=>setOptions(e.target.value)} type="text" className="form-control"/>
+                            <label>Option 4:</label>
+                            <input onChange={(e)=>setOptions(e.target.value)} type="text" className="form-control"/>
                         </div>
                         <div className="form-group text-right">
                             <button onClick={()=>navigate("/")} type="button" className="btn btn-secondary btn-sm">Cancel</button>
-                            <button className="btn btn-primary btn-sm" style={{marginLeft: "10px"}}>Submit</button>
+                            <button className="btn btn-primary btn-sm" style={{marginLeft: "10px"}}>Submit Poll</button>
                         </div>
                     </form>
                 </div>

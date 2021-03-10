@@ -1,0 +1,16 @@
+table{
+    border:1px solid black;
+    border-collapse:collapse;
+}
+table tr th{
+    border:1px solid black;
+    background-color: rgba(241, 143, 192, 0.336);
+}
+table tr td{
+    border:1px solid black;
+    color: grey;
+}
+.btn{
+    width: 85px;
+    box-shadow: 3px 3px 4px black;
+}

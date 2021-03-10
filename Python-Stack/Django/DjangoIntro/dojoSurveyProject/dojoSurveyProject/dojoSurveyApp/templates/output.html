@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Survey Index</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styleOutput.css' %}">  
+</head>
+<body>
+    <center>
+        <div>
+            <h3> Submitted Info</h3>
+            <table>
+                <tr>
+                    <th>Name:</th>
+                    <td>{{name_on_template}}</td>
+                </tr>
+                <tr>
+                    <th>Dojo Location:</th>
+                    <td>{{location_on_template}}</td>
+                </tr>
+                <tr>
+                    <th>Favorite Language:</th>
+                    <td>{{favorite_language_on_template}}</td>
+                </tr>
+                <tr>
+                    <th>Comment:</th>
+                    <td>{{comment_on_template}}</td>
+                </tr>
+            </table>
+            <form method="post" action="back">
+                {% csrf_token %}
+                <input type="submit"  value="Go Back">
+            </form>
+        </div>
+    </center>
+</body>
+</html>

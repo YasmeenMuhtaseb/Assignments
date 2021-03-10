@@ -1,0 +1,187 @@
+Create the Dojo class model:
+dojo_ninjas_app > models.py
+
+from django.db import models
+    
+class Dojos(models.Model):
+    name = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+____________________________________________________________________________________________________________________________________
+Create the Ninja class model:
+
+class Ninjas(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    dojo = models.ForeignKey(Dojos, related_name="ninjas", on_delete = models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+_____________________________________________________________________________________________________________________________________
+Create and run the migration files to create the tables in your database:
+
+(djangoPy3Env) PS C:\Users\Yasmeen Muhtaseb\Desktop\python_stack\django\django_orm\dojo_ninjas_proj> python manage.py makemigrations
+Migrations for 'dojo_ninjas_app':
+  dojo_ninjas_app\migrations\0001_initial.py
+    - Create model Dojos
+    - Create model Ninjas
+
+(djangoPy3Env) PS C:\Users\Yasmeen Muhtaseb\Desktop\python_stack\django\django_orm\dojo_ninjas_proj> python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, dojo_ninjas_app, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying dojo_ninjas_app.0001_initial... OK
+  Applying sessions.0001_initial... OK
+__________________________________________________________________________________________________________________________________________________
+
+Run the shell and import your models:
+
+(djangoPy3Env) PS C:\Users\Yasmeen Muhtaseb\Desktop\python_stack\django\django_orm\dojo_ninjas_proj> python manage.py shell
+Python 3.8.1 (tags/v3.8.1:1b293b6, Dec 18 2019, 23:11:46) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from dojo_ninjas_app.models  import Dojos, Ninjas
+>>> Dojos.objects.all()
+<QuerySet []>
+>>> Ninjas.objects.all()
+<QuerySet []>
+__________________________________________________________________________________________________________________________________________________
+
+Query: Create 3 new dojos:
+
+>>> Dojos.objects.create(name = 'dojo1', city = 'city1', state = 'state1')
+<Dojos: Dojos object (1)>
+>>> Dojos.objects.create(name = 'dojo1', city = 'city2', state = 'state2')  
+<Dojos: Dojos object (2)>
+>>> Dojos.objects.create(name = 'dojo3', city = 'city3', state = 'state3') 
+<Dojos: Dojos object (3)>
+>>> Dojos.objects.all()  
+<QuerySet [<Dojos: Dojos object (1)>, <Dojos: Dojos object (2)>, <Dojos: Dojos object (3)>]>
+__________________________________________________________________________________________________________________________________________________
+
+Query: Delete the 3 dojos you just created:
+
+>>> Dojos.objects.get(id=1).delete()
+(1, {'dojo_ninjas_app.Ninjas': 0, 'dojo_ninjas_app.Dojos': 1})
+>>> Dojos.objects.get(id=2).delete() 
+(1, {'dojo_ninjas_app.Ninjas': 0, 'dojo_ninjas_app.Dojos': 1})
+>>> Dojos.objects.get(id=3).delete() 
+(1, {'dojo_ninjas_app.Ninjas': 0, 'dojo_ninjas_app.Dojos': 1})
+>>> Dojos.objects.all()
+<QuerySet []>
+__________________________________________________________________________________________________________________________________________________
+
+Query: Create 3 more dojos:
+
+>>> Dojos.objects.create(name = 'dojo4', city = 'city4', state = 'state4') 
+<Dojos: Dojos object (4)>
+>>> Dojos.objects.create(name = 'dojo5', city = 'city5', state = 'state5') 
+<Dojos: Dojos object (5)>
+>>> Dojos.objects.create(name = 'dojo6', city = 'city6', state = 'state6') 
+<Dojos: Dojos object (6)>
+>>> Dojos.objects.all()        
+<QuerySet [<Dojos: Dojos object (4)>, <Dojos: Dojos object (5)>, <Dojos: Dojos object (6)>]>
+__________________________________________________________________________________________________________________________________________________
+
+Query: Create 3 ninjas that belong to the first dojo:
+
+>>> Ninjas.objects.create(first_name='Yasmeen',last_name='Muhtaseb', dojo=Dojos.objects.get(id=4))
+<Ninjas: Ninjas object (1)>
+>>> Ninjas.objects.create(first_name='Kamal',last_name='Alnouri', dojo=Dojos.objects.get(id=4))    
+<Ninjas: Ninjas object (2)>
+>>> Ninjas.objects.create(first_name='Ahmad',last_name='Murad', dojo=Dojos.objects.get(id=4))   
+<Ninjas: Ninjas object (3)>
+__________________________________________________________________________________________________________________________________________________
+
+Query: Create 3 ninjas that belong to the second dojo:
+
+>>> Ninjas.objects.create(first_name='Mohammad',last_name='Murad', dojo=Dojos.objects.get(id=5))
+<Ninjas: Ninjas object (4)>
+>>> Ninjas.objects.create(first_name='Majdi',last_name='Murad', dojo=Dojos.objects.get(id=5))    
+<Ninjas: Ninjas object (5)>
+>>> Ninjas.objects.create(first_name='Amjad',last_name='Murad', dojo=Dojos.objects.get(id=5)) 
+<Ninjas: Ninjas object (6)>
+__________________________________________________________________________________________________________________________________________________
+
+Query: Create 3 ninjas that belong to the third dojo:
+
+>>> Ninjas.objects.create(first_name='Worod',last_name='Ahmad', dojo=Dojos.objects.get(id=6)) 
+<Ninjas: Ninjas object (7)>
+>>> Ninjas.objects.create(first_name='Abed',last_name='Ahmad', dojo=Dojos.objects.get(id=6))  
+<Ninjas: Ninjas object (8)>
+>>> Ninjas.objects.create(first_name='Saed',last_name='Abed', dojo=Dojos.objects.get(id=6))  
+<Ninjas: Ninjas object (9)>
+__________________________________________________________________________________________________________________________________________________
+
+Query: Retrieve all the ninjas from the first dojo:
+
+>>> Ninjas.objects.filter(dojo=Dojos.objects.get(id=4))
+<QuerySet [<Ninjas: Ninjas object (1)>, <Ninjas: Ninjas object (2)>, <Ninjas: Ninjas object (3)>]>
+__________________________________________________________________________________________________________________________________________________
+
+Query: Retrieve all the ninjas from the last dojo:
+
+>>> Ninjas.objects.filter(dojo=Dojos.objects.get(id=6)) 
+<QuerySet [<Ninjas: Ninjas object (7)>, <Ninjas: Ninjas object (8)>, <Ninjas: Ninjas object (9)>]>
+_________________________________________________________________________________________________________________________________________________
+
+Query: Retrieve the last ninja's dojo:
+
+>>> Dojos.objects.filter(ninjas = Ninjas.objects.get(id=9))
+<QuerySet [<Dojos: Dojos object (6)>]>
+_________________________________________________________________________________________________________________________________________________
+
+Add a new text field called "desc" to your Dojo class:
+
+class Dojos(models.Model):
+    name = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=2)
+    desc = models.TextField(default = "old dojo")   #ADDED WITH DEFAULT VALUE
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+_________________________________________________________________________________________________________________________________________________
+
+Create and run the migration files to update the table in your database. If needed, provide a default value of "old dojo":
+
+>>> exit()
+(djangoPy3Env) PS C:\Users\Yasmeen Muhtaseb\Desktop\python_stack\django\django_orm\dojo_ninjas_proj> python manage.py makemigrations
+Migrations for 'dojo_ninjas_app':                                                                                                                                             
+  dojo_ninjas_app\migrations\0002_dojos_desc.py
+    - Add field desc to dojos
+(djangoPy3Env) PS C:\Users\Yasmeen Muhtaseb\Desktop\python_stack\django\django_orm\dojo_ninjas_proj> python manage.py migrate       
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, dojo_ninjas_app, sessions
+Running migrations:
+  Applying dojo_ninjas_app.0002_dojos_desc... OK
+__________________________________________________________________________________________________________________________________________________
+
+Query: Create a new dojo:
+
+(djangoPy3Env) PS C:\Users\Yasmeen Muhtaseb\Desktop\python_stack\django\django_orm\dojo_ninjas_proj> python manage.py shell
+Python 3.8.1 (tags/v3.8.1:1b293b6, Dec 18 2019, 23:11:46) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from dojo_ninjas_app.models import Dojos, Ninjas
+>>> Dojos.objects.create(name = 'dojo7', city = 'city7', state = 'state7', desc ='new dojo')
+<Dojos: Dojos object (7)>
+>>> Dojos.objects.all()                                                                            
+<QuerySet [<Dojos: Dojos object (4)>, <Dojos: Dojos object (5)>, <Dojos: Dojos object (6)>, <Dojos: Dojos object (7)>]>
+__________________________________________________________________________________________________________________________________________________

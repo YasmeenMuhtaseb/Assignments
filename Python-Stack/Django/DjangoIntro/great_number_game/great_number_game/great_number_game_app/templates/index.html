@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great Number Game</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 	
+</head>
+<body>
+    <center>
+            <h2>Welcome to the Great Number Game!</h2>
+            <p>I am thinking of a number between 1 and 100</p>
+            <p>Take a quess!</p>
+            <br>
+            {%if request.session.result == 'low' and  request.session.attempts < 5%}
+                <p class="wrong_display">Too Low</p>
+            {%endif%}
+            {%if request.session.result == 'high' and  request.session.attempts < 5%}
+                <p class="wrong_display">Too High</p>
+            {%endif%}
+            <br>
+            {%if request.session.result != 'correct' and  request.session.attempts < 5%}
+                <form method="post" action="check">
+                    {% csrf_token %}
+                    <p>Attempts: {{request.session.attempts}} times</p>
+                    <input type="number" name="inserted_number">
+                    <br><br>
+                    <button type="submit">Submit</button>
+                </form>
+            {%endif%}
+            {%if  request.session.result != 'correct' and request.session.attempts == 5%}
+                <p>Attempts: {{request.session.attempts}} times</p>
+                <form action="try_again">
+                        <div class = "try_again">
+                            <p> You Lose</p>
+                            <button type="submit" >Try again!</button>
+                        </div>
+                </form> 
+            {%endif%}
+            {%if request.session.result == 'correct' and request.session.attempts <= 5%} 
+                <p>Attempts: {{request.session.attempts}} times</p>
+                <form action="play_again">
+                        <div class = "play_again">
+                            <p> {{request.session.random_number}} was the number!</p>
+                            <button type="submit" >Play again!</button>
+                        </div>
+                </form> 
+            {%endif%}
+    </center>
+</body>
+</html>

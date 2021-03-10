@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkerboard</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 2px solid black;
+        }
+
+        table tr td {
+            width: 60px;
+            height: 60px;
+        }
+
+        .first_color {
+            background-color: {{color1}};
+        }
+
+        .second_color {
+            background-color: {{color2}};
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        {% for i in range(x): %}
+        <tr>
+            {% for i in range(y):%}
+            {% if i%2 == 0: %}
+            <td class="first_color"></td> 
+            {% endif %}
+            {% if i%2 != 0: %}
+            <td class="second_color"></td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for i in range(y):%}
+            {% if i%2 == 0: %}
+            <td class="second_color"></td>
+            {% endif %}
+            {% if i%2 != 0: %}
+            <td class="first_color"></td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
